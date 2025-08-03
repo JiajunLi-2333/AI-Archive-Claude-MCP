@@ -1,0 +1,27 @@
+{
+  "name": "aiarchive-mcp-server",
+  "version": "1.0.0",
+  "description": "This is the MCP server code for the techx ai archive project",
+  "main": "server.js",
+  "type": "module",
+
+  "scripts": {
+    "start" : "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiajunLi-2333/AI-Archive-Claude-MCP.git"
+  },
+  "author": "Jiajun Li",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+  },
+  "bugs": {
+    "url": "https://github.com/JiajunLi-2333/AI-Archive-Claude-MCP/issues"
+  },
+  "homepage": "https://github.com/JiajunLi-2333/AI-Archive-Claude-MCP#readme"
+}
