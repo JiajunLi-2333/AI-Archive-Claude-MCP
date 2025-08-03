@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import FormData from 'form-data';
 
 const app = express();
 const PORT = 8000;
@@ -127,7 +126,7 @@ function escapeHtml(text) {
 /**
  * Send conversation to aiarchives API using multipart/form-data
  */
-async function saveConversationToApi(htmlContent, model = 'Claude 4') {
+async function saveConversationToApi(htmlContent, model = 'Claude Sonnet 4') {
   try {
     console.log(`Saving conversation to API: ${AIARCHIVES_API_URL}`);
     console.log(`Model: ${model}, HTML size: ${htmlContent.length} bytes`);
