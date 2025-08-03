@@ -18,7 +18,8 @@
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
-    "body-parser": "^1.20.2"
+    "body-parser": "^1.20.2",
+    "form-data": "^4.0.0"
   },
   "bugs": {
     "url": "https://github.com/JiajunLi-2333/AI-Archive-Claude-MCP/issues"
