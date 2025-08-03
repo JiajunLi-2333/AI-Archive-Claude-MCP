@@ -1,0 +1,22 @@
+name: Deploy MCP code to EC2
+on:
+    push:
+        branches: [main]
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        env:
+            SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            HOST: ${{ secrets.SERVER_HOST }}
+            USER: ${{ secrets.SERVER_USER }}
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Sync code to EC2
+              run: |
+                echo "$SSH_KEY" > deploy_key
+                chmod 600 deploy_key
+                rsync -avz --delete \
+                  --exclude 'node_modules' --exclude '.git' --exclude '.env' \
+                  -e "ssh -i deploy_key -o StrictHostKeyChecking=no" \
+                  . $USER@$HOST:~/aiarchives-mcp-server/
