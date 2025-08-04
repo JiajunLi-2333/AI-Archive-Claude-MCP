@@ -2,12 +2,12 @@
   "name": "aiarchive-mcp-server",
   "version": "1.0.0",
   "description": "This is the MCP server code for the techx ai archive project",
-  "main": "server.js",
+  "main": "mcp.js",
   "type": "module",
 
   "scripts": {
-    "start" : "node server.js",
-    "dev": "node server.js"
+    "start" : "node mcp.js",
+    "dev": "node mcp.js"
   },
   "repository": {
     "type": "git",
