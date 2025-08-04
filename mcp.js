@@ -24,6 +24,8 @@ async function saveConversationToAPI(htmlContent, model = "Claude") {
         const formData = new FormData();
         formData.append('htmlDoc', new Blob([htmlDoc], { type: 'text/plain; charset=utf-8' }));
         formData.append('model', model);
+        //Add the skipScraping key to the formData
+        formData.append('skipScraping');
 
         const response = await fetch(AIARCHIVES_API_URL, {method: 'POST', formData});
         if(!response.ok){
