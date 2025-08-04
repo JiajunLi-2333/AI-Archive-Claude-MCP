@@ -22,18 +22,25 @@ async function saveConversationToAPI(htmlContent, model = "Claude") {
 
         //save the file and the model information as formData 
         const formData = new FormData();
-        formData.append('htmlDoc', new Blob([htmlDoc], { type: 'text/plain; charset=utf-8' }));
+        formData.append('htmlDoc', new Blob([htmlContent], { type: 'text/plain; charset=utf-8' })); // Fixed: htmlDoc -> htmlContent
         formData.append('model', model);
         //Add the skipScraping key to the formData
-        formData.append('skipScraping');
+        formData.append('skipScraping', 'true'); // Fixed: added value
 
-        const response = await fetch(AIARCHIVES_API_URL, {method: 'POST', formData});
+        const response = await fetch(AIARCHIVES_API_URL, {
+            method: 'POST', 
+            body: formData // Fixed: formData -> body: formData
+        });
+        
         if(!response.ok){
             const errorText = await response.text();
             console.error(`API request failed: ${response.status} ${response.statusText}`);
             console.error('Error response:', errorText);
             throw new Error(`API request failed: ${response.status} ${errorText}`);
         }
+
+        const result = await response.json();
+        return result; // Return the result for use in the response
     }
     catch(error){
         console.error('Error saving conversation to API:', error);
@@ -51,7 +58,7 @@ app.post('/mcp', async(req, res) => {
 
         //handle notifications that do not require a response id === undefined
         if(id === undefined && method){
-            console.log(`Handling notofication: ${method}}`);
+            console.log(`Handling notification: ${method}`); // Fixed typo: notofication -> notification
             switch(method){
                 case 'notifications/initialized':
                     console.log("MCP server initialized successfully");
@@ -110,13 +117,13 @@ app.post('/mcp', async(req, res) => {
                         tools:[
                             {
                                 name: "save_conversation",
-                                description: "Saves your entire LLM conversation to aiarchives.duckdns.org and returns a shareable URL. Please Provide the full convesation content as HTML in the conversation parameter. Use this after completing a conversation to create a permanent, shareable link",
+                                description: "Saves your entire LLM conversation to aiarchives.duckdns.org and returns a shareable URL. Please Provide the full conversation content as HTML in the conversation parameter. Use this after completing a conversation to create a permanent, shareable link",
                                 inputSchema:{
                                     type: 'object',
                                     properties:{
                                         conversation: {
                                             type: "string",
-                                            description: "Compelete the conversation content formatted as HTML with all messages and proper structure" 
+                                            description: "Complete the conversation content formatted as HTML with all messages and proper structure" 
                                         }
                                     },
                                     required: ['conversation']
@@ -168,7 +175,7 @@ app.post('/mcp', async(req, res) => {
                                     id: id,
                                     error: {
                                         code: -32602,
-                                        message: "Invalid Params: Converation data type not as string or empty conversation" 
+                                        message: "Invalid Params: Conversation data type not as string or empty conversation" 
                                     }
                                 });
                                 return;
@@ -211,6 +218,7 @@ app.post('/mcp', async(req, res) => {
                         }
                     });
                 }
+                break; // Fixed: Added missing break statement
             default:
                 res.status(400).json({
                     jsonrpc: '2.0',
