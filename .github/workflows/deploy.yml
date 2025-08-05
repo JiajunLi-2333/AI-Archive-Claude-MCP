@@ -23,5 +23,5 @@ jobs:
             
             - name: Start the MCP server
               run: | 
-                ssh -i deploy_key -o StrictHostKeyChecking=no $USER@$HOST:~/aiarchives-mcp-server \
-                 "npm start"
+                ssh -i deploy_key -o StrictHostKeyChecking=no $USER@$HOST \
+                 "cd ~/aiarchives-mcp-server && npm start"
