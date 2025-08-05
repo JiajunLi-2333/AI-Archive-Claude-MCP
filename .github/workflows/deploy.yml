@@ -20,4 +20,7 @@ jobs:
                   --exclude 'node_modules' --exclude '.git' --exclude '.env' \
                   -e "ssh -i deploy_key -o StrictHostKeyChecking=no" \
                   . $USER@$HOST:~/aiarchives-mcp-server/
-            
+            - name: Restart the Service
+              run: |
+                ssh -i deploy_key -o StrictHostKeyChecking=no $USER@$HOST \
+                "sudo systemctl restart aiarchives-mcp.service"
