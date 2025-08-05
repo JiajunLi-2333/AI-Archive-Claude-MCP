@@ -20,3 +20,8 @@ jobs:
                   --exclude 'node_modules' --exclude '.git' --exclude '.env' \
                   -e "ssh -i deploy_key -o StrictHostKeyChecking=no" \
                   . $USER@$HOST:~/aiarchives-mcp-server/
+            
+            - name: Start the MCP server
+              run: | 
+                sudo -i deploy_key -o StrictHostKeyChecking=no $USER@$HOST \
+                 "npm start"
