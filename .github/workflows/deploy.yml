@@ -23,5 +23,5 @@ jobs:
             
             - name: Start the MCP server
               run: | 
-                sudo -i deploy_key -o StrictHostKeyChecking=no $USER@$HOST \
+                ssh -i deploy_key -o StrictHostKeyChecking=no $USER@$HOST \
                  "npm start"
